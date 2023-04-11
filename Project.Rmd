@@ -1,0 +1,73 @@
+# Data
+
+```{r}
+library(dplyr)
+install.packages("ggplot2")
+library(ggplot2)
+data <- read.csv("./StudentsPerformance.csv", stringsAsFactors = FALSE)
+students <- head(students, 30)
+str(students)
+
+low_income <- head(dplyr::filter(data, lunch == "free/reduced"), 30)
+high_income <- head(dplyr::filter(data, lunch == "standard" & parental.level.of.education != "high school"), 30)
+```
+
+# Averages
+
+```{r}
+math_average <- mean(students$math.score, na.rm = TRUE)
+reading_average <- mean(students$reading.score, na.rm = TRUE)
+writing_average <- mean(students$writing.score, na.rm = TRUE)
+
+low_income_math_average <- mean(low_income$math.score, na.rm = TRUE)
+low_income_reading_average <- mean(low_income$reading.score, na.rm = TRUE)
+low_income_writing_average <- mean(low_income$writing.score, na.rm = TRUE)
+
+high_income_math_average <- mean(high_income$math.score, na.rm = TRUE)
+high_income_reading_average <- mean(high_income$reading.score, na.rm = TRUE)
+high_income_writing_average <- mean(high_income$writing.score, na.rm = TRUE)
+
+```
+
+# Standard Deviations
+
+```{r}
+math_std    <- sd(students$math.score, na.rm = TRUE)
+reading_std <- sd(students$reading.score, na.rm = TRUE)
+writing_std <- sd(students$writing.score, na.rm = TRUE)
+
+low_income_math_std    <- sd(low_income$math.score, na.rm = TRUE)
+low_income_reading_std <- sd(low_income$reading.score, na.rm = TRUE)
+low_income_writing_std <- sd(low_income$writing.score, na.rm = TRUE)
+
+high_income_math_average <- sd(high_income$math.score, na.rm = TRUE)
+high_income_reading_average <- sd(high_income$reading.score, na.rm = TRUE)
+high_income_writing_average <- sd(high_income$writing.score, na.rm = TRUE)
+
+```
+
+# Plots
+
+## Box Plot
+
+```{r}
+
+math_lunch_box <- ggplot(students, aes(x=lunch, y=math.score)) + geom_boxplot() 
+math_lunch_box
+
+math_education_box <- ggplot(data, aes(x=parental.level.of.education, y=math.score)) + geom_boxplot()
+math_education_box
+
+reading_lunch_box <- ggplot(students, aes(x=lunch, y=reading.score)) + geom_boxplot() 
+reading_lunch_box
+
+reading_education_box <- ggplot(data, aes(x=parental.level.of.education, y=reading.score)) + geom_boxplot()
+reading_education_box
+
+writing_lunch_box <- ggplot(students, aes(x=lunch, y=writing.score)) + geom_boxplot() 
+writing_lunch_box
+
+writing_education_box <- ggplot(data, aes(x=parental.level.of.education, y=writing.score)) + geom_boxplot()
+math_education_box
+
+```
