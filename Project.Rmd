@@ -2,14 +2,13 @@
 
 ```{r}
 library(dplyr)
-install.packages("ggplot2")
 library(ggplot2)
 data <- read.csv("./StudentsPerformance.csv", stringsAsFactors = FALSE)
-students <- head(students, 30)
+students <- head(data, 30)
 str(students)
 
 low_income <- head(dplyr::filter(data, lunch == "free/reduced"), 30)
-high_income <- head(dplyr::filter(data, lunch == "standard" & parental.level.of.education != "high school"), 30)
+high_income <- head(dplyr::filter(data, lunch == "standard"), 30)
 ```
 
 # Averages
@@ -68,6 +67,51 @@ writing_lunch_box <- ggplot(students, aes(x=lunch, y=writing.score)) + geom_boxp
 writing_lunch_box
 
 writing_education_box <- ggplot(data, aes(x=parental.level.of.education, y=writing.score)) + geom_boxplot()
-math_education_box
+writing_education_box
+# degrees of freedom for sample mean is 29
+# significance value is 0.05
+# We need a critical t value
+t_critical<- qt(p=.975, df=29)
+margin_math <- t_critical*math_std/sqrt(30)
+margin_reading <- t_critical*reading_std/sqrt(30)
+margin_writing <- t_critical*writing_std/sqrt(30)
+lower_interval_math <- math_average - margin_math
+higher_interval_math <- math_average + margin_math
+lower_interval_reading <- reading_average - margin_reading
+higher_interval_reading <- reading_average + margin_reading
+lower_interval_writing <- writing_average - margin_writing
+higher_interval_weriting <- writing_average + margin_writing
+#Values above denote 95% confidence interval from [low to high]
 
+low_income_math <-low_income[["math.score"]]
+high_income_math <-high_income[["math.score"]]
+
+math_correlation_dataframe <- data.frame( 
+                group = rep(c("low", "high"), each = 30),
+                weight = c(low_income_math,  high_income_math)
+                )
+res_math <- t.test(low_income_math, high_income_math, paired = TRUE)
+res_math
+
+low_income_reading <-low_income[["reading.score"]]
+high_income_reading <-high_income[["reading.score"]]
+
+math_correlation_dataframe <- data.frame( 
+                group = rep(c("low", "high"), each = 30),
+                weight = c(low_income_reading,  high_income_reading)
+                )
+res_reading <- t.test(low_income_reading, high_income_reading, paired = TRUE)
+res_reading
+
+low_income_writing <-low_income[["writing.score"]]
+high_income_writing <-high_income[["writing.score"]]
+
+math_correlation_dataframe <- data.frame( 
+                group = rep(c("low", "high"), each = 30),
+                weight = c(low_income_writing,  high_income_writing)
+                )
+res_writing <- t.test(low_income_writing, high_income_writing, paired = TRUE)
+res_writing
 ```
+
+
