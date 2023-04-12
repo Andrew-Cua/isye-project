@@ -54,20 +54,41 @@ high_income_writing_average <- sd(high_income$writing.score, na.rm = TRUE)
 math_lunch_box <- ggplot(students, aes(x=lunch, y=math.score)) + geom_boxplot() 
 math_lunch_box
 
-math_education_box <- ggplot(data, aes(x=parental.level.of.education, y=math.score)) + geom_boxplot()
-math_education_box
 
 reading_lunch_box <- ggplot(students, aes(x=lunch, y=reading.score)) + geom_boxplot() 
 reading_lunch_box
 
-reading_education_box <- ggplot(data, aes(x=parental.level.of.education, y=reading.score)) + geom_boxplot()
-reading_education_box
-
 writing_lunch_box <- ggplot(students, aes(x=lunch, y=writing.score)) + geom_boxplot() 
 writing_lunch_box
 
-writing_education_box <- ggplot(data, aes(x=parental.level.of.education, y=writing.score)) + geom_boxplot()
-writing_education_box
+```
+
+## Histograms
+```{r}
+
+reduced_math_hist <- ggplot(low_income, aes(x=math.score)) + geom_histogram()
+reduced_math_hist
+
+reduced_reading_hist <- ggplot(low_income, aes(x=reading.score)) + geom_histogram()
+reduced_reading_hist
+
+reduced_writing_hist <- ggplot(low_income, aes(x=math.score)) + geom_histogram()
+reduced_writing_hist
+
+high_math_hist <- ggplot(high_income, aes(x=math.score)) + geom_histogram()
+high_math_hist
+
+high_reading_hist <- ggplot(high_income, aes(x=reading.score)) + geom_histogram()
+high_reading_hist
+
+high_writing_hist <- ggplot(high_income, aes(x=writing.score)) + geom_histogram()
+high_writing_hist
+
+
+```
+
+# Correlation and Confidence Interval
+```{r}
 # degrees of freedom for sample mean is 29
 # significance value is 0.05
 # We need a critical t value
