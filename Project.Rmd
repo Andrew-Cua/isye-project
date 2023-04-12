@@ -17,15 +17,21 @@ high_income <- head(dplyr::filter(data, lunch == "standard"), 30)
 math_average <- mean(students$math.score, na.rm = TRUE)
 reading_average <- mean(students$reading.score, na.rm = TRUE)
 writing_average <- mean(students$writing.score, na.rm = TRUE)
-
+math_average
+reading_average
+writing_average
 low_income_math_average <- mean(low_income$math.score, na.rm = TRUE)
 low_income_reading_average <- mean(low_income$reading.score, na.rm = TRUE)
 low_income_writing_average <- mean(low_income$writing.score, na.rm = TRUE)
-
+low_income_math_average
+low_income_reading_average
+low_income_writing_average
 high_income_math_average <- mean(high_income$math.score, na.rm = TRUE)
 high_income_reading_average <- mean(high_income$reading.score, na.rm = TRUE)
 high_income_writing_average <- mean(high_income$writing.score, na.rm = TRUE)
-
+high_income_math_average
+high_income_reading_average
+high_income_writing_average
 ```
 
 # Standard Deviations
@@ -34,15 +40,21 @@ high_income_writing_average <- mean(high_income$writing.score, na.rm = TRUE)
 math_std    <- sd(students$math.score, na.rm = TRUE)
 reading_std <- sd(students$reading.score, na.rm = TRUE)
 writing_std <- sd(students$writing.score, na.rm = TRUE)
-
+math_std
+reading_std
+writing_std
 low_income_math_std    <- sd(low_income$math.score, na.rm = TRUE)
 low_income_reading_std <- sd(low_income$reading.score, na.rm = TRUE)
 low_income_writing_std <- sd(low_income$writing.score, na.rm = TRUE)
-
+low_income_math_std
+low_income_reading_std
+low_income_writing_std
 high_income_math_average <- sd(high_income$math.score, na.rm = TRUE)
 high_income_reading_average <- sd(high_income$reading.score, na.rm = TRUE)
 high_income_writing_average <- sd(high_income$writing.score, na.rm = TRUE)
-
+high_income_math_average
+high_income_reading_average
+high_income_writing_average
 ```
 
 # Plots
@@ -51,38 +63,41 @@ high_income_writing_average <- sd(high_income$writing.score, na.rm = TRUE)
 
 ```{r}
 
-math_lunch_box <- ggplot(students, aes(x=lunch, y=math.score)) + geom_boxplot() 
-math_lunch_box
+math_lunch_box <- ggplot(students, aes(x=lunch, y=math.score)) + geom_boxplot(fill = c(rep("lightcoral",1), rep("lightblue",1))) +
+    scale_x_discrete(labels=c("Low Income","High Income"))
+math_lunch_box+ labs(x = "Income Level", y = "Math Score" , title = "Math Score by Income Level")
 
 
-reading_lunch_box <- ggplot(students, aes(x=lunch, y=reading.score)) + geom_boxplot() 
-reading_lunch_box
+reading_lunch_box <- ggplot(students, aes(x=lunch, y=reading.score)) + geom_boxplot(fill = c(rep("lightcoral",1), rep("lightblue",1))) +
+    scale_x_discrete(labels=c("Low Income","High Income"))
+reading_lunch_box + labs(x = "Income Level", y = "Reading Score" , title = "Reading Score by Income Level")
 
-writing_lunch_box <- ggplot(students, aes(x=lunch, y=writing.score)) + geom_boxplot() 
-writing_lunch_box
+writing_lunch_box <- ggplot(students, aes(x=lunch, y=writing.score)) + geom_boxplot(fill = c(rep("lightcoral",1), rep("lightblue",1))) +
+    scale_x_discrete(labels=c("Low Income","High Income"))
+writing_lunch_box + labs(x = "Income Level", y = "Writing Score", title = "Writing Score by Income Level")
 
 ```
 
 ## Histograms
 ```{r}
 
-reduced_math_hist <- ggplot(low_income, aes(x=math.score)) + geom_histogram()
-reduced_math_hist
+reduced_math_hist <- ggplot(low_income, aes(x=math.score)) + geom_histogram(fill = rep("lightcoral"))
+reduced_math_hist + labs(x = "Math Score", y = "Number of Students" , title = "Math Scores Across Low Income Students")
 
-reduced_reading_hist <- ggplot(low_income, aes(x=reading.score)) + geom_histogram()
-reduced_reading_hist
+reduced_reading_hist <- ggplot(low_income, aes(x=reading.score)) + geom_histogram(fill = rep("lightcoral"))
+reduced_reading_hist + labs(x = "Reading Score", y = "Number of Students" , title = "Reading Scores Across Low Income Students")
 
-reduced_writing_hist <- ggplot(low_income, aes(x=math.score)) + geom_histogram()
-reduced_writing_hist
+reduced_writing_hist <- ggplot(low_income, aes(x=writing.score)) + geom_histogram(fill = rep("lightcoral"))
+reduced_writing_hist + labs(x = "Writing Score", y = "Number of Students" , title = "Writing Scores Across Low Income Students")
 
-high_math_hist <- ggplot(high_income, aes(x=math.score)) + geom_histogram()
-high_math_hist
+high_math_hist <- ggplot(high_income, aes(x=math.score)) + geom_histogram(fill = rep("lightblue"))
+high_math_hist + labs(x = "Math Score", y = "Number of Students" , title = "Math Scores Across High Income Students")
 
-high_reading_hist <- ggplot(high_income, aes(x=reading.score)) + geom_histogram()
-high_reading_hist
+high_reading_hist <- ggplot(high_income, aes(x=reading.score)) + geom_histogram(fill = rep("lightblue"))
+high_reading_hist + labs(x = "Reading Score", y = "Number of Students" , title = "Reading Scores Across High Income Students")
 
-high_writing_hist <- ggplot(high_income, aes(x=writing.score)) + geom_histogram()
-high_writing_hist
+high_writing_hist <- ggplot(high_income, aes(x=writing.score)) + geom_histogram(fill = rep("lightblue"))
+high_writing_hist + labs(x = "Writing Score", y = "Number of Students", title = "Writing Score Across High Income Students")
 
 
 ```
